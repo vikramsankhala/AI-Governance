@@ -20,6 +20,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center space-x-6">
               <a href="#overview" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Overview</a>
               <a href="#modules" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Modules</a>
+              <a href="/syllabus" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Syllabus</a>
               <a href="#instructors" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Instructors</a>
               <Button>Enroll Now</Button>
             </nav>
