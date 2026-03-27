@@ -1,4 +1,5 @@
-import { SyllabusGrid } from "@/components/SyllabusGrid";
+import { CompleteSyllabusGrid } from "@/components/CompleteSyllabusGrid";
+import { UpdatedSyllabusWithReferences } from "@/components/UpdatedSyllabusWithReferences";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -42,6 +43,15 @@ export default function SyllabusPage() {
             Explore our detailed curriculum with interactive cards covering every aspect of AI governance. 
             Filter by modules, topics, and learning styles to customize your learning journey.
           </p>
+          <div className="mb-8">
+            <Badge className="mb-4 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              📰 Recent Developments (2023-2024)
+            </Badge>
+            <p className="text-lg text-slate-600 dark:text-slate-300">
+              Stay current with the latest AI governance developments, including real-world case studies, 
+              regulatory updates, and industry implementations.
+            </p>
+          </div>
           <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-600 dark:text-slate-400">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
@@ -63,9 +73,30 @@ export default function SyllabusPage() {
         </div>
       </section>
 
-      {/* Syllabus Grid */}
+      {/* Recent Developments Section */}
+      <section className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+            Recent AI Governance Developments
+          </h2>
+          <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 text-center">
+            Real-world case studies and current events from 2023-2024 with authentic references
+          </p>
+          <UpdatedSyllabusWithReferences />
+        </div>
+      </section>
+
+      {/* Complete Syllabus Section */}
       <section className="container mx-auto px-4 py-8 pb-16">
-        <SyllabusGrid />
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+            Complete Course Syllabus
+          </h2>
+          <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 text-center">
+            Comprehensive curriculum covering all 11 modules with 350+ interactive learning cards
+          </p>
+          <CompleteSyllabusGrid />
+        </div>
       </section>
 
       {/* Footer */}
