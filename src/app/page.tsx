@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { InstructorCard } from "@/components/InstructorCard";
 import { CurriculumTimeline } from "@/components/CurriculumTimeline";
-import { DevOpsCurriculum } from "@/components/DevOpsCurriculum";
+import { EnhancedDevOpsCurriculum } from "@/components/EnhancedDevOpsCurriculum";
 import { EnrollmentSection } from "@/components/EnrollmentSection";
 
 export default function Home() {
@@ -22,6 +22,7 @@ export default function Home() {
               <a href="#overview" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Overview</a>
               <a href="#modules" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">AI Governance</a>
               <a href="#devops" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">DevOps & AI</a>
+              <a href="/reference-book" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Reference Book</a>
               <a href="/syllabus" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Syllabus</a>
               <a href="#instructors" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Instructors</a>
               <Button>Enroll Now</Button>
@@ -145,7 +146,7 @@ export default function Home() {
       {/* DevOps & AI Engineering Curriculum */}
       <section id="devops" className="container mx-auto px-4 py-16 bg-white/50 dark:bg-slate-800/50 rounded-3xl">
         <div className="max-w-6xl mx-auto">
-          <DevOpsCurriculum />
+          <EnhancedDevOpsCurriculum />
         </div>
       </section>
 

@@ -113,7 +113,7 @@ const topics: Topic[] = [
         type: "Concept",
         icon: "◈",
         title: "Agentic Coding: Beyond Autocomplete",
-        description: "The shift from tab-completion to autonomous coding agents. How Cursor, Claude Code, and Copilot Workspace plan, execute, and self-correct across multi-file tasks.",
+        description: "The shift from tab-completion to autonomous coding agents. How Cursor, Claude Code, and Copilot Workspace plan, execute, and self-correct across multi-file tasks. Real-world examples of multi-file refactoring and entire feature generation.",
         duration: "25 min",
         difficulty: 2
       },
@@ -121,7 +121,7 @@ const topics: Topic[] = [
         type: "Code",
         icon: "⌨",
         title: "Prompt Patterns for Infrastructure Code Generation",
-        description: "Proven prompt templates for Terraform, Dockerfile, Kubernetes YAML, and GitHub Actions. Role-based prompting, chain-of-thought, and why context windows matter.",
+        description: "Proven prompt templates for Terraform, Dockerfile, Kubernetes YAML, and GitHub Actions. Role-based prompting, chain-of-thought, and why context windows matter. Includes actual production-ready prompts.",
         duration: "50 min",
         difficulty: 2
       },
@@ -129,16 +129,40 @@ const topics: Topic[] = [
         type: "Lab",
         icon: "⬡",
         title: "Build a Full Microservice Stack Using Only AI Prompts",
-        description: "Dockerised Node.js + PostgreSQL + Nginx stack — Dockerfiles, compose file, GitHub Actions pipeline — generated entirely via Copilot and Claude with zero manual YAML.",
+        description: "Dockerised Node.js + PostgreSQL + Nginx stack — Dockerfiles, compose file, GitHub Actions pipeline — generated entirely via Copilot and Claude with zero manual YAML. Step-by-step walkthrough.",
         duration: "90 min",
         difficulty: 3
       },
       {
         type: "AI Integration",
         icon: "✦",
-        title: "Copilot for Pull Request Review at Scale",
-        description: "Using Copilot PR Summaries, custom review instructions, and GitHub Models to automate code quality gates. How to write .github/copilot-instructions.md for your org.",
+        title: "GitHub Copilot: From Basics to Production Mastery",
+        description: "Complete guide to GitHub Copilot including Copilot Chat, Copilot Workspace, and advanced features. Learn from GitHub's official team and industry experts.",
         duration: "35 min",
+        difficulty: 2
+      },
+      {
+        type: "AI Integration",
+        icon: "✦",
+        title: "Cursor IDE: The AI-Native Development Environment",
+        description: "Deep dive into Cursor's AI-native features including Composer, Chat with Codebase, and advanced debugging. Learn how to leverage Cursor for complex development tasks.",
+        duration: "40 min",
+        difficulty: 2
+      },
+      {
+        type: "AI Integration",
+        icon: "✦",
+        title: "Claude Code: Anthropic's AI Coding Assistant",
+        description: "Master Claude Code for complex software development. Learn about Claude's superior reasoning capabilities and how it handles large codebases with context awareness.",
+        duration: "35 min",
+        difficulty: 2
+      },
+      {
+        type: "Best Practices",
+        icon: "★",
+        title: "Prompt Engineering Standards for DevOps Teams",
+        description: "Establishing a shared prompt library: version-controlled prompts, team review, A/B testing output quality. How Shopify and Stripe manage organisational AI context.",
+        duration: "30 min",
         difficulty: 2
       },
       {
@@ -150,17 +174,9 @@ const topics: Topic[] = [
         difficulty: 3
       },
       {
-        type: "Best Practices",
-        icon: "★",
-        title: "Prompt Engineering Standards for DevOps Teams",
-        description: "Establishing a shared prompt library: version-controlled prompts, team review, A/B testing output quality. How Shopify and Stripe manage organisational AI context.",
-        duration: "30 min",
-        difficulty: 2
-      },
-      {
         type: "Debug",
         icon: "⚡",
-        title: "When Copilot Gets It Wrong: Debugging AI Output",
+        title: "When AI Gets It Wrong: Debugging AI Output",
         description: "Systematic approach to validating AI-generated infrastructure code. Tools: cfn-lint, tflint, kube-linter, and how to write prompts that surface their own bugs.",
         duration: "45 min",
         difficulty: 3
@@ -187,7 +203,7 @@ const topics: Topic[] = [
         type: "Theory",
         icon: "⊙",
         title: "Git Object Model: Blobs, Trees, Commits, Refs",
-        description: "Deep internals — how Git stores data, what happens during a commit, merge vs. rebase at the object level. Essential for diagnosing subtle repo corruption issues.",
+        description: "Deep internals — how Git stores data, what happens during a commit, merge vs. rebase at the object level. Essential for diagnosing subtle repo corruption issues and understanding Git's performance characteristics.",
         duration: "40 min",
         difficulty: 3
       },
@@ -195,7 +211,7 @@ const topics: Topic[] = [
         type: "Concept",
         icon: "◈",
         title: "Trunk-Based Development vs. GitFlow: The Research",
-        description: "DORA data shows TBD outperforms feature branching on all four metrics. Understanding why, and how to transition a team from long-lived branches without chaos.",
+        description: "DORA data shows TBD outperforms feature branching on all four metrics. Understanding why, and how to transition a team from long-lived branches without chaos. Real case studies from successful implementations.",
         duration: "30 min",
         difficulty: 2
       },
@@ -203,7 +219,7 @@ const topics: Topic[] = [
         type: "Code",
         icon: "⌨",
         title: "Monorepo Tooling: Nx, Turborepo & Bazel",
-        description: "Setting up affected builds, remote caching, and dependency graphs in a monorepo. When to use Nx vs. Bazel vs. Turborepo for your stack size and team.",
+        description: "Setting up affected builds, remote caching, and dependency graphs in a monorepo. When to use Nx vs. Bazel vs. Turborepo for your stack size and team. Performance comparisons and migration strategies.",
         duration: "60 min",
         difficulty: 3
       },
@@ -211,7 +227,7 @@ const topics: Topic[] = [
         type: "Lab",
         icon: "⬡",
         title: "Implement Pre-commit Hooks with Husky + Conventional Commits",
-        description: "Automated commit message validation, linting, type-checking, and secret scanning before every commit. Enforce standards across a 10-engineer team.",
+        description: "Automated commit message validation, linting, type-checking, and secret scanning before every commit. Enforce standards across a 10-engineer team. Complete setup with real-world examples.",
         duration: "50 min",
         difficulty: 2
       },
@@ -219,7 +235,7 @@ const topics: Topic[] = [
         type: "Use Case",
         icon: "◎",
         title: "Google's Monorepo: 86TB, 45,000 Commits/Day",
-        description: "How Google's Piper repository handles the world's largest codebase — virtual filesystem, automated dependency updates, and why they've never split into microrepos.",
+        description: "How Google's Piper repository handles the world's largest codebase — virtual filesystem, automated dependency updates, and why they've never split into microrepos. Technical deep dive into their infrastructure.",
         duration: "35 min",
         difficulty: 3
       },
@@ -227,28 +243,36 @@ const topics: Topic[] = [
         type: "Debug",
         icon: "⚡",
         title: "Diagnosing Git Merge Conflicts in Large Teams",
-        description: "Strategies for complex 3-way merges, rerere for repeated conflict resolution, and how to use git blame + bisect to trace production regressions to their source commit.",
+        description: "Strategies for complex 3-way merges, rerere for repeated conflict resolution, and how to use git blame + bisect to trace production regressions to their source commit. Advanced conflict resolution techniques.",
         duration: "45 min",
         difficulty: 3
+      },
+      {
+        type: "Best Practices",
+        icon: "★",
+        title: "Feature Flags: Decouple Deploy from Release",
+        description: "Modern feature flagging strategies using LaunchDarkly, Flagsmith, and open-source solutions. How to safely test in production, perform gradual rollouts, and instant rollbacks without branch merging.",
+        duration: "40 min",
+        difficulty: 2
+      },
+      {
+        type: "Security",
+        icon: "⚠",
+        title: "Git Security: Secrets, Signing & Access Control",
+        description: "Using git-secrets, truffleHog, and gitleaks in CI. Removing secrets from history with git-filter-repo. CODEOWNERS, branch protection rules, GPG signing, and SSH key management.",
+        duration: "40 min",
+        difficulty: 2
       },
       {
         type: "Cheat Sheet",
         icon: "≡",
         title: "Git Power-User Reference: 80 Commands You Need",
-        description: "Advanced git commands — reflog, worktrees, sparse-checkout, partial clone, maintenance, bundle. With real scenarios for each.",
+        description: "Advanced git commands — reflog, worktrees, sparse-checkout, partial clone, maintenance, bundle. With real scenarios for each command and when to use them in production environments.",
         duration: "15 min",
         difficulty: 1
-      },
-      {
-        type: "Security",
-        icon: "⚠",
-        title: "Secrets in Git History: Detection, Removal & Prevention",
-        description: "Using git-secrets, truffleHog, and gitleaks in CI. Removing secrets from history with git-filter-repo. CODEOWNERS, branch protection rules, and signed commits.",
-        duration: "40 min",
-        difficulty: 2
       }
     ]
-  }
+  },
 ];
 
 const cardTypeColors: Record<string, string> = {
