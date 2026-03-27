@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { InstructorCard } from "@/components/InstructorCard";
 import { CurriculumTimeline } from "@/components/CurriculumTimeline";
+import { DevOpsCurriculum } from "@/components/DevOpsCurriculum";
 import { EnrollmentSection } from "@/components/EnrollmentSection";
 
 export default function Home() {
@@ -19,7 +20,8 @@ export default function Home() {
             </div>
             <nav className="hidden md:flex items-center space-x-6">
               <a href="#overview" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Overview</a>
-              <a href="#modules" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Modules</a>
+              <a href="#modules" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">AI Governance</a>
+              <a href="#devops" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">DevOps & AI</a>
               <a href="/syllabus" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Syllabus</a>
               <a href="#instructors" className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white">Instructors</a>
               <Button>Enroll Now</Button>
@@ -35,13 +37,14 @@ export default function Home() {
             30-Hour Advanced Course
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-            AI Governance: 
+            Advanced Programs: 
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}Global Perspectives
+              {" "}AI Governance & DevOps Engineering
             </span>
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
-            State-of-the-art online course on AI governance with competing paradigms from US, EU, China, India, and the Global South. Featuring real-world case studies, debates, and policy simulations.
+            State-of-the-art online programs featuring AI Governance with global perspectives and DevOps & AI Engineering mastery. 
+            Real-world case studies, hands-on labs, and cutting-edge curriculum designed by industry experts.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
@@ -54,11 +57,11 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-600 dark:text-slate-400">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-green-500 rounded-full"></div>
-              <span>10 Modules</span>
+              <span>2 Programs</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-              <span>30 Hours Total</span>
+              <span>54+ Hours Total</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-purple-500 rounded-full"></div>
@@ -66,7 +69,11 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 bg-orange-500 rounded-full"></div>
-              <span>Project-Based</span>
+              <span>340+ Learning Cards</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 bg-pink-500 rounded-full"></div>
+              <span>18 Card Types</span>
             </div>
           </div>
         </div>
@@ -135,6 +142,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* DevOps & AI Engineering Curriculum */}
+      <section id="devops" className="container mx-auto px-4 py-16 bg-white/50 dark:bg-slate-800/50 rounded-3xl">
+        <div className="max-w-6xl mx-auto">
+          <DevOpsCurriculum />
+        </div>
+      </section>
+
       {/* Instructors Section */}
       <section id="instructors" className="container mx-auto px-4 py-16 bg-white/50 dark:bg-slate-800/50 rounded-3xl">
         <div className="max-w-6xl mx-auto">
@@ -143,46 +157,12 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <InstructorCard
-              name="Dr. Stewart Russell"
-              title="Professor of Computer Science"
-              affiliation="UC Berkeley"
-              expertise={["AI Safety", "Control Problem", "Beneficial AI"]}
-              bio="Turing Award winner known for work on provably beneficial AI and the control problem in artificial intelligence systems."
-            />
-            <InstructorCard
-              name="Dr. Ananya Kumar"
-              title="AI Policy Fellow"
-              affiliation="NITI Aayog"
-              expertise={["India AI Strategy", "Global South", "Techno-Legal Frameworks"]}
-              bio="Leading expert on India's middle path approach to AI governance and representing Global South perspectives in international forums."
-            />
-            <InstructorCard
-              name="Prof. Maria Chen"
-              title="Law & Technology Professor"
-              affiliation="Stanford Law School"
-              expertise={["AI Liability", "Professional Responsibility", "Litigation Trends"]}
-              bio="Authority on AI litigation trends and professional responsibility, with extensive experience in AI-related court cases."
-            />
-            <InstructorCard
-              name="Dr. James Wilson"
-              title="Regulatory Affairs Director"
-              affiliation="EU Commission"
-              expertise={["EU AI Act", "Risk-Based Regulation", "Compliance Frameworks"]}
-              bio="Key architect of the EU AI Act and expert on risk-based approaches to AI governance and compliance."
-            />
-            <InstructorCard
-              name="Dr. Priya Sharma"
-              title="Data Governance Expert"
-              affiliation="Data Protection Authority"
-              expertise={["Data Privacy", "Biometric Governance", "DPDP Act"]}
-              bio="Specialist in data protection laws and biometric privacy, with focus on emerging AI data governance challenges."
-            />
-            <InstructorCard
-              name="Prof. Michael Torres"
-              title="AI Ethics Director"
-              affiliation="UN AI Governance"
-              expertise={["Global Dialogue", "Multilateral Governance", "Value Pluralism"]}
-              bio="Leading the UN's Global Dialogue on AI Governance and expert on international AI policy coordination."
+              name="Vikram Singh Sankhala"
+              title="Senior AI & SAP BTP Architect"
+              affiliation="SAP"
+              expertise={["AI/ML & LLM Integration", "SAP BTP & Analytics", "Multi-Agent Systems", "Pharma AI Solutions", "Enterprise Architecture"]}
+              bio="Senior AI and SAP BTP architect with 15+ years of enterprise experience delivering production-grade AI/ML, SAP analytics, and full-stack platforms for global clients. Specializing in LLM-based AI, multi-agent systems, and data platforms within SAP landscapes with focus on BI, analytics, and decision support in regulated industries including pharma and healthcare."
+              avatar="/vikram-sankhala.jpg"
             />
           </div>
         </div>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced DevOps & AI Engineering — Curriculum by Vikram Sankhala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070a;
+  --bg2: #0e0e12;
+  --bg3: #16161c;
+  --bg4: #1e1e26;
+  --accent: #7c6cfc;
+  --accent2: #ff5e8a;
+  --accent3: #00e5b0;
+  --accent4: #ffa040;
+  --text: #eeedf4;
+  --text-muted: #8884a0;
+  --border: rgba(124,108,252,0.14);
+  --border2: rgba(255,255,255,0.06);
+  --card: #111118;
+
+  /* Card type colors */
+  --c-concept: #7c6cfc;
+  --c-theory: #a78bfa;
+  --c-code: #00e5b0;
+  --c-lab: #3b9eff;
+  --c-project: #ffa040;
+  --c-usecase: #ff5e8a;
+  --c-debug: #ff6b6b;
+  --c-quiz: #f9d84a;
+  --c-interview: #c084fc;
+  --c-bestpractice: #34d399;
+  --c-casestudy: #fb923c;
+  --c-demo: #22d3ee;
+  --c-cheatsheet: #a3e635;
+  --c-architecture: #818cf8;
+  --c-comparison: #f472b6;
+  --c-security: #ef4444;
+  --c-ai: #8b5cf6;
+  --c-research: #6ee7b7;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── CURSOR ── */
+.cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; top:0;left:0; pointer-events:none; z-index:9999; transition: transform 0.1s; mix-blend-mode: screen; }
+.cursor-ring { width: 28px; height: 28px; border: 1px solid var(--accent); border-radius: 50%; position:fixed; top:0;left:0; pointer-events:none; z-index:9998; transition: left 0.1s, top 0.1s; opacity:0.5; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(7,7,10,0.9); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { display:flex; flex-direction:column; gap:2px; }
+.nav-brand-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
+.nav-brand-sub { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-muted); }
+.nav-right { display:flex; align-items:center; gap:32px; }
+.nav-right a { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-decoration:none; transition: color 0.2s; }
+.nav-right a:hover { color: var(--accent); }
+.nav-stat { display:flex; flex-direction:column; align-items:center; gap:2px; }
+.nav-stat-n { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--accent3); }
+.nav-stat-l { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(124,108,252,0.07) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0,229,176,0.04) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 50% at 80% 20%, rgba(255,94,138,0.04) 0%, transparent 60%);
+}
+.hero-eyebrow {
+  display: inline-flex; align-items:center; gap:10px;
+  background: rgba(124,108,252,0.08); border: 1px solid var(--border);
+  padding: 7px 18px; margin-bottom: 32px;
+  font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent);
+  animation: fadeUp 0.5s ease both;
+}
+.hero-eyebrow-dot { width:6px;height:6px; background:var(--accent); border-radius:50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(1.5)} }
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(44px, 6vw, 92px);
+  font-weight: 800; letter-spacing: -4px; line-height: 0.95;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s 0.08s ease both;
+}
+.hero h1 em { font-style:italic; font-family:'Fraunces',serif; color:var(--accent); font-weight:300; }
+.hero-sub {
+  font-size: 14px; color: var(--text-muted); line-height: 1.9; max-width: 640px;
+  margin-bottom: 56px;
+  animation: fadeUp 0.5s 0.16s ease both;
+}
+.hero-meta {
+  display: flex; gap: 40px; align-items: center; justify-content: center;
+  animation: fadeUp 0.5s 0.24s ease both;
+  flex-wrap: wrap;
+}
+.meta-item { display:flex; flex-direction:column; align-items:center; gap:4px; }
+.meta-n { font-family:'Syne',sans-serif; font-size:36px; font-weight:800; letter-spacing:-2px; color:var(--accent); }
+.meta-l { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); }
+.meta-sep { width:1px; height:48px; background: var(--border2); }
+
+/* Card type legend */
+.legend {
+  padding: 32px 48px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.legend-title { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px; }
+.legend-grid { display:flex; flex-wrap:wrap; gap:10px; }
+.legend-item {
+  display:flex; align-items:center; gap:7px;
+  font-size:10px; letter-spacing:0.5px; color:var(--text-muted);
+}
+.legend-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+
+/* ── TOPIC SECTION ── */
+.topic-section {
+  padding: 80px 48px 60px;
+  border-bottom: 1px solid var(--border2);
+  position: relative;
+}
+.topic-section:nth-child(even) { background: var(--bg2); }
+.topic-header {
+  display: grid; grid-template-columns: auto 1fr; gap: 32px;
+  align-items: start; margin-bottom: 48px;
+}
+.topic-num {
+  font-family:'Syne',sans-serif; font-size:72px; font-weight:800;
+  letter-spacing:-4px; line-height:0.9;
+  color: rgba(124,108,252,0.12);
+  flex-shrink:0;
+}
+.topic-info {}
+.topic-label { font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.topic-title {
+  font-family:'Syne',sans-serif; font-size:clamp(22px,3vw,38px);
+  font-weight:800; letter-spacing:-1.5px; line-height:1.1;
+  margin-bottom:10px;
+}
+.topic-title em { font-style:italic; font-family:'Fraunces',serif; color:var(--accent3); font-weight:300; }
+.topic-desc { font-size:12px; color:var(--text-muted); line-height:1.8; max-width:700px; }
+.topic-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+.topic-tag {
+  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  padding:3px 9px; border:1px solid var(--border); color:var(--text-muted);
+}
+
+/* ── CARD GRID ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+/* ── BASE CARD ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  padding: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex; flex-direction: column;
+  min-height: 160px;
+}
+.card:hover {
+  background: var(--bg3);
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+.card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background: var(--card-color, var(--accent));
+  transition: opacity 0.2s;
+}
+.card:hover::before { opacity: 1; }
+
+.card-type-badge {
+  display: inline-flex; align-items:center; gap:5px;
+  font-size:8px; letter-spacing:2px; text-transform:uppercase;
+  padding:3px 8px;
+  border: 1px solid;
+  margin-bottom:14px; align-self:flex-start;
+  color: var(--card-color, var(--accent));
+  border-color: var(--card-color, var(--accent));
+  background: color-mix(in srgb, var(--card-color, var(--accent)) 8%, transparent);
+  opacity:0.9;
+}
+.card-type-icon { font-size:10px; }
+.card h3 {
+  font-family:'Syne',sans-serif;
+  font-size:14px; font-weight:700; line-height:1.3;
+  margin-bottom:8px; flex:1;
+}
+.card p {
+  font-size:11px; color:var(--text-muted); line-height:1.7;
+  margin-bottom:16px;
+}
+.card-footer {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-top:auto; padding-top:12px;
+  border-top:1px solid var(--border2);
+}
+.card-duration { font-size:9px; letter-spacing:1px; color:var(--text-muted); }
+.card-link {
+  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  color: var(--card-color, var(--accent));
+  display:flex; align-items:center; gap:4px;
+  transition: gap 0.2s;
+}
+.card:hover .card-link { gap:8px; }
+.card-difficulty {
+  display:flex; gap:3px; align-items:center;
+}
+.diff-dot { width:5px;height:5px; border-radius:50%; }
+.diff-dot.filled { background: var(--card-color, var(--accent)); }
+.diff-dot.empty { background: var(--border2); }
+
+/* Card type variants — set --card-color */
+.card-concept { --card-color: var(--c-concept); }
+.card-theory { --card-color: var(--c-theory); }
+.card-code { --card-color: var(--c-code); }
+.card-lab { --card-color: var(--c-lab); }
+.card-project { --card-color: var(--c-project); }
+.card-usecase { --card-color: var(--c-usecase); }
+.card-debug { --card-color: var(--c-debug); }
+.card-quiz { --card-color: var(--c-quiz); }
+.card-interview { --card-color: var(--c-interview); }
+.card-bestpractice { --card-color: var(--c-bestpractice); }
+.card-casestudy { --card-color: var(--c-casestudy); }
+.card-demo { --card-color: var(--c-demo); }
+.card-cheatsheet { --card-color: var(--c-cheatsheet); }
+.card-architecture { --card-color: var(--c-architecture); }
+.card-comparison { --card-color: var(--c-comparison); }
+.card-security { --card-color: var(--c-security); }
+.card-ai { --card-color: var(--c-ai); }
+.card-research { --card-color: var(--c-research); }
+
+/* ── SECTION NAV SIDEBAR ── */
+.sidebar {
+  position: fixed; right: 0; top: 50%;
+  transform: translateY(-50%);
+  display:flex; flex-direction:column; gap:4px;
+  padding: 12px 8px;
+  background: rgba(7,7,10,0.8); backdrop-filter:blur(12px);
+  border-left: 1px solid var(--border);
+  z-index:150;
+}
+.sidebar-dot {
+  width:6px; height:6px; border-radius:50%;
+  background: var(--border2); cursor:pointer;
+  transition: all 0.2s;
+  position:relative;
+}
+.sidebar-dot:hover, .sidebar-dot.active { background: var(--accent); transform:scale(1.5); }
+.sidebar-dot::before {
+  content: attr(data-label);
+  position:absolute; right:16px; top:50%;
+  transform:translateY(-50%);
+  font-size:9px; letter-spacing:1px; text-transform:uppercase;
+  background: var(--bg3); color:var(--text); padding:3px 8px;
+  white-space:nowrap; opacity:0; pointer-events:none;
+  transition: opacity 0.2s;
+  border: 1px solid var(--border);
+}
+.sidebar-dot:hover::before { opacity:1; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2); padding: 64px 48px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  display:grid; grid-template-columns:2fr 1fr; gap:80px;
+  margin-bottom:48px;
+}
+.footer-by { font-size:11px; color:var(--text-muted); line-height:1.8; max-width:480px; margin-top:12px; }
+.footer-author {
+  font-family:'Syne',sans-serif; font-size:22px; font-weight:800;
+  letter-spacing:-1px; color:var(--text);
+}
+.footer-author span { color:var(--accent); }
+.footer-stats { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border2); }
+.f-stat { background:var(--bg3); padding:20px; }
+.f-stat-n { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; letter-spacing:-1.5px; color:var(--accent3); }
+.f-stat-l { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-top:2px; }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:24px; border-top:1px solid var(--border2);
+  font-size:10px; color:var(--text-muted);
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0; transform:translateY(18px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px) {
+  nav { padding:14px 20px; }
+  .hero, .topic-section { padding-left:20px; padding-right:20px; }
+  .legend { padding:24px 20px; }
+  .sidebar { display:none; }
+  footer { padding:48px 20px 32px; }
+  .footer-inner { grid-template-columns:1fr; gap:40px; }
+}
+@media(max-width:640px) {
+  .cards-grid { grid-template-columns:1fr; }
+  .topic-header { grid-template-columns:1fr; }
+  .topic-num { font-size:48px; }
+  .hero-meta { gap:24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-brand-name">Vikram Sankhala</span>
+    <span class="nav-brand-sub">Advanced DevOps & AI Engineering</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-stat"><span class="nav-stat-n">24</span><span class="nav-stat-l">Modules</span></div>
+    <div class="nav-stat"><span class="nav-stat-n">340+</span><span class="nav-stat-l">Cards</span></div>
+    <div class="nav-stat"><span class="nav-stat-n">18</span><span class="nav-stat-l">Card Types</span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>2025–2026 Edition · Fully Updated · AI-Native</div>
+  <h1>DevOps &<br><em>AI Engineering</em><br>Mastery</h1>
+  <p class="hero-sub">A comprehensive, practitioner-level curriculum by <strong>Vikram Sankhala</strong>. Every topic maps to real production scenarios — covering containers, orchestration, platform engineering, AIOps, security, chaos, and the full spectrum of modern GenAI-driven DevOps.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-n">24</span><span class="meta-l">Topics</span></div>
+    <div class="meta-sep"></div>
+    <div class="meta-item"><span class="meta-n">340+</span><span class="meta-l">Learning Cards</span></div>
+    <div class="meta-sep"></div>
+    <div class="meta-item"><span class="meta-n">18</span><span class="meta-l">Card Types</span></div>
+    <div class="meta-sep"></div>
+    <div class="meta-item"><span class="meta-n">30+</span><span class="meta-l">Tools Covered</span></div>
+  </div>
+</section>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-title">Card Type Key</div>
+  <div class="legend-grid">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-concept)"></div>Concept</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-theory)"></div>Theory & Principles</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-code)"></div>Code Walkthrough</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-lab)"></div>Hands-On Lab</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-project)"></div>Project</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-usecase)"></div>Use Case</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-debug)"></div>Debugging & Troubleshooting</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-quiz)"></div>Quiz / Assessment</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-interview)"></div>Interview Prep</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-bestpractice)"></div>Best Practices</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-casestudy)"></div>Case Study</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-demo)"></div>Live Demo</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-cheatsheet)"></div>Cheat Sheet</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-architecture)"></div>Architecture Deep-Dive</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-comparison)"></div>Tool Comparison</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-security)"></div>Security Focus</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-ai)"></div>AI / GenAI Integration</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--c-research)"></div>Research & Trends</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     TOPIC 01 — DEVOPS PHILOSOPHY & AI TRANSFORMATION
+════════════════════════════════════════════════════ -->
+<section class="topic-section" id="t01">
+  <div class="topic-header">
+    <div class="topic-num">01</div>
+    <div class="topic-info">
+      <div class="topic-label">Foundation</div>
+      <h2 class="topic-title">DevOps Philosophy &<br><em>AI Transformation</em></h2>
+      <p class="topic-desc">Beyond CALMS and the Three Ways — understanding DevOps as a sociotechnical system, measuring what matters with DORA & SPACE metrics, and positioning AI as an accelerant for every stage of the software delivery loop.</p>
+      <div class="topic-tags"><span class="topic-tag">DORA</span><span class="topic-tag">SPACE Metrics</span><span class="topic-tag">Value Streams</span><span class="topic-tag">AIOps Strategy</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-concept reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">◈</span>Concept</div><h3>What DevOps Actually Means in 2025</h3><p>Separating mythology from reality: DevOps as organisational system design, not just tooling. The three ways, the five ideals, and where GenAI changes the calculus.</p><div class="card-footer"><span class="card-duration">22 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot empty"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>DORA Metrics Deep Dive: What Elites Actually Do</h3><p>Deployment frequency, lead time, MTTR, and change failure rate — benchmarks from 30,000+ organisations. How elite teams achieve daily deploys with &lt;1% CFR.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-research reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">⌬</span>Research</div><h3>SPACE Framework: Measuring Developer Productivity</h3><p>The GitHub-backed SPACE model — satisfaction, performance, activity, communication, efficiency. Why DORA alone misses 60% of what matters in platform teams.</p><div class="card-footer"><span class="card-duration">28 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>AI as a Force Multiplier in the SDLC</h3><p>Mapping Copilot, CodeWhisperer, Gemini Code Assist, and agentic systems to each phase of the delivery pipeline. Where AI saves hours vs. where it creates risk.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>Netflix → 1000s Deploys/Day: Inside Their Pipeline</h3><p>Anatomy of Netflix's Spinnaker-based delivery system, chaos engineering culture, and how they instrument every deploy with canary analysis.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Build a DORA Metrics Dashboard for Your Pipeline</h3><p>Instrument a sample GitHub Actions pipeline, extract deployment events, and visualise DORA metrics in Grafana with real data.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>DevOps vs. Platform Engineering vs. SRE in 2025</h3><p>How the three disciplines differ, overlap, and co-exist. Who owns what in modern organisations, and what this means for your career trajectory.</p><div class="card-footer"><span class="card-duration">25 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-interview reveal" data-link="#"><div class="card-type-badge"><span class="card-type-icon">◇</span>Interview Prep</div><h3>DevOps Philosophy: Top 30 Senior-Level Questions</h3><p>Staff and principal engineer questions on value stream mapping, tech debt, organisational change, and measuring delivery performance. With model answers.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TOPIC 02 — AI-ASSISTED DEVELOPMENT & PROMPT ENGINEERING
+════════════════════════════════════════════════════ -->
+<section class="topic-section" id="t02">
+  <div class="topic-header">
+    <div class="topic-num">02</div>
+    <div class="topic-info">
+      <div class="topic-label">AI Tooling</div>
+      <h2 class="topic-title">AI-Assisted Development &<br><em>Prompt Engineering</em></h2>
+      <p class="topic-desc">Mastering GitHub Copilot, agentic coding with Cursor & Claude Code, and prompt engineering patterns that actually produce production-quality infrastructure code — not just demos.</p>
+      <div class="topic-tags"><span class="topic-tag">GitHub Copilot</span><span class="topic-tag">Cursor</span><span class="topic-tag">Claude Code</span><span class="topic-tag">Prompt Engineering</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-concept reveal"><div class="card-type-badge"><span class="card-type-icon">◈</span>Concept</div><h3>Agentic Coding: Beyond Autocomplete</h3><p>The shift from tab-completion to autonomous coding agents. How Cursor, Claude Code, and Copilot Workspace plan, execute, and self-correct across multi-file tasks.</p><div class="card-footer"><span class="card-duration">25 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Prompt Patterns for Infrastructure Code Generation</h3><p>Proven prompt templates for Terraform, Dockerfile, Kubernetes YAML, and GitHub Actions. Role-based prompting, chain-of-thought, and why context windows matter.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Build a Full Microservice Stack Using Only AI Prompts</h3><p>Dockerised Node.js + PostgreSQL + Nginx stack — Dockerfiles, compose file, GitHub Actions pipeline — generated entirely via Copilot and Claude with zero manual YAML.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>Copilot for Pull Request Review at Scale</h3><p>Using Copilot PR Summaries, custom review instructions, and GitHub Models to automate code quality gates. How to write .github/copilot-instructions.md for your org.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>AI-Generated Code: Trust But Verify</h3><p>Common failure modes of LLM-generated IaC — insecure defaults, stale API versions, hallucinated resource names. How to build a verification layer into your AI workflow.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>Prompt Engineering Standards for DevOps Teams</h3><p>Establishing a shared prompt library: version-controlled prompts, team review, A/B testing output quality. How Shopify and Stripe manage organisational AI context.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>When Copilot Gets It Wrong: Debugging AI Output</h3><p>Systematic approach to validating AI-generated infrastructure code. Tools: cfn-lint, tflint, kube-linter, and how to write prompts that surface their own bugs.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-quiz reveal"><div class="card-type-badge"><span class="card-type-icon">✎</span>Quiz</div><h3>AI Development Tools: Knowledge Check</h3><p>20 scenario-based questions covering Copilot configuration, prompt design, model selection, and responsible AI usage in production engineering contexts.</p><div class="card-footer"><span class="card-duration">20 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TOPIC 03 — ADVANCED GIT & TRUNK-BASED DEVELOPMENT
+════════════════════════════════════════════════════ -->
+<section class="topic-section" id="t03">
+  <div class="topic-header">
+    <div class="topic-num">03</div>
+    <div class="topic-info">
+      <div class="topic-label">Source Control</div>
+      <h2 class="topic-title">Advanced Git &<br><em>Trunk-Based Development</em></h2>
+      <p class="topic-desc">Git internals, large-scale monorepo strategies, trunk-based development at speed, and how elite teams use feature flags rather than long-lived branches to decouple deploy from release.</p>
+      <div class="topic-tags"><span class="topic-tag">Git Internals</span><span class="topic-tag">Trunk-Based Dev</span><span class="topic-tag">Monorepos</span><span class="topic-tag">Feature Flags</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Git Object Model: Blobs, Trees, Commits, Refs</h3><p>Deep internals — how Git stores data, what happens during a commit, merge vs. rebase at the object level. Essential for diagnosing subtle repo corruption issues.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-concept reveal"><div class="card-type-badge"><span class="card-type-icon">◈</span>Concept</div><h3>Trunk-Based Development vs. GitFlow: The Research</h3><p>DORA data shows TBD outperforms feature branching on all four metrics. Understanding why, and how to transition a team from long-lived branches without chaos.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Monorepo Tooling: Nx, Turborepo & Bazel</h3><p>Setting up affected builds, remote caching, and dependency graphs in a monorepo. When to use Nx vs. Bazel vs. Turborepo for your stack size and team.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Implement Pre-commit Hooks with Husky + Conventional Commits</h3><p>Automated commit message validation, linting, type-checking, and secret scanning before every commit. Enforce standards across a 10-engineer team.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Google's Monorepo: 86TB, 45,000 Commits/Day</h3><p>How Google's Piper repository handles the world's largest codebase — virtual filesystem, automated dependency updates, and why they've never split into microrepos.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Diagnosing Git Merge Conflicts in Large Teams</h3><p>Strategies for complex 3-way merges, rerere for repeated conflict resolution, and how to use git blame + bisect to trace production regressions to their source commit.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-cheatsheet reveal"><div class="card-type-badge"><span class="card-type-icon">≡</span>Cheat Sheet</div><h3>Git Power-User Reference: 80 Commands You Need</h3><p>Advanced git commands — reflog, worktrees, sparse-checkout, partial clone, maintenance, bundle. With real scenarios for each.</p><div class="card-footer"><span class="card-duration">15 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot empty"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Secrets in Git History: Detection, Removal & Prevention</h3><p>Using git-secrets, truffleHog, and gitleaks in CI. Removing secrets from history with git-filter-repo. CODEOWNERS, branch protection rules, and signed commits.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TOPIC 04 — CI/CD ARCHITECTURE & PIPELINE DESIGN
+════════════════════════════════════════════════════ -->
+<section class="topic-section" id="t04">
+  <div class="topic-header">
+    <div class="topic-num">04</div>
+    <div class="topic-info">
+      <div class="topic-label">Continuous Delivery</div>
+      <h2 class="topic-title">CI/CD Architecture &<br><em>Pipeline Design</em></h2>
+      <p class="topic-desc">Designing pipelines that are fast, reliable, and secure — from multi-stage builds and test parallelisation to deployment strategies and progressive delivery at the architectural level.</p>
+      <div class="topic-tags"><span class="topic-tag">Pipeline Architecture</span><span class="topic-tag">Test Strategy</span><span class="topic-tag">Deployment Patterns</span><span class="topic-tag">Supply Chain Security</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Designing a Pipeline for 10 Milliseconds → Production</h3><p>Architecting truly fast pipelines: test bucketing, parallelism, build caching, artifact pinning, and feedback loop optimisation. How Vercel ships in &lt;45 seconds.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Deployment Strategies: Blue-Green, Canary, Shadow, A/B</h3><p>When to use which strategy. Rollback latency, infrastructure cost, traffic routing complexity, and observability requirements for each pattern with real trade-offs.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>GitHub Actions: Reusable Workflows & Composite Actions</h3><p>Building a composable workflow library — inputs/outputs, secrets inheritance, matrix strategies, and concurrency controls. DRY pipelines across 20+ repositories.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Software Supply Chain Security: SLSA Level 3+</h3><p>SLSA framework, provenance attestation, SBOM generation with Syft, signing with Sigstore/Cosign, and dependency review. Achieving SLSA level 3 in a GitHub Actions pipeline.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Build a Production-Grade Multi-Stage Jenkins Pipeline</h3><p>Declarative Jenkinsfile with parallel stages, shared libraries, Docker agent pools, SonarQube gate, Trivy scan, and Artifactory push. Full enterprise pattern.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Flaky Tests Destroying Your Pipeline: Root Causes & Fixes</h3><p>Identifying flakiness with test analytics, quarantine strategies, async timing bugs, and shared state problems. How Google manages 500k tests with &lt;0.1% flake rate.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>AI-Driven Pipeline Optimisation with GitHub Copilot</h3><p>Using Copilot to analyse pipeline bottlenecks, suggest parallelisation strategies, generate test fixtures, and write pipeline-as-code for complex deployment topologies.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>Pipeline Security Hardening: Least Privilege Secrets</h3><p>OIDC for keyless cloud auth, short-lived credentials, environment protection rules, required reviewers, and audit logging for all deployment events.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 05 — CONTAINER ENGINEERING -->
+<section class="topic-section" id="t05">
+  <div class="topic-header">
+    <div class="topic-num">05</div>
+    <div class="topic-info">
+      <div class="topic-label">Containerisation</div>
+      <h2 class="topic-title">Container Engineering &<br><em>OCI Internals</em></h2>
+      <p class="topic-desc">From Linux namespaces and cgroups to multi-platform image builds, container security hardening, and the OCI specification — understanding containers from the kernel up.</p>
+      <div class="topic-tags"><span class="topic-tag">Docker</span><span class="topic-tag">OCI Spec</span><span class="topic-tag">BuildKit</span><span class="topic-tag">Distroless</span><span class="topic-tag">containerd</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Containers Without Docker: Linux Namespaces & cgroups v2</h3><p>How containers actually work — PID, NET, MNT, UTS, IPC, and user namespaces. cgroups v2 memory/CPU limits. What Docker does that the kernel already provides.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>BuildKit Advanced: Multi-Stage, Cache Mounts & Secrets</h3><p>BuildKit's DAG execution model, --mount=type=cache for Go/npm/pip, bind mounts, and SSH forwarding. Building images 10× faster with layer cache optimisation.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Reduce a 1.2GB Image to 18MB with Distroless + Multi-Stage</h3><p>Step-by-step optimisation of a Node.js application image — dive analysis, layer squashing, scratch base, and distroless migration. Security scan before/after comparison.</p><div class="card-footer"><span class="card-duration">75 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Container Security: Rootless Containers & Seccomp Profiles</h3><p>Running containers without root, user namespace remapping, AppArmor vs. Seccomp profile creation, read-only root filesystems, and dropping capabilities.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-demo reveal"><div class="card-type-badge"><span class="card-type-icon">▶</span>Demo</div><h3>Docker Compose for Local Development: Full Dev Stack</h3><p>Postgres + Redis + API + Worker + Nginx reverse proxy with health checks, named volumes, environment override files, and watch mode for hot reload.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Docker vs. Podman vs. containerd vs. nerdctl in 2025</h3><p>Runtime comparison: daemonless architecture, CRI compatibility, rootless default, Docker API compatibility, and when to use each in CI vs. production vs. Kubernetes node.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Container Runtime Failures: OOM, Exit Codes & Networking</h3><p>Decoding exit codes (137, 139, 1, 125). Diagnosing OOM kills with cgroup events. Container-to-container networking failures, DNS resolution, and bridge vs overlay modes.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-cheatsheet reveal"><div class="card-type-badge"><span class="card-type-icon">≡</span>Cheat Sheet</div><h3>Dockerfile Best-Practice Reference Card</h3><p>50 rules for production Dockerfiles: ARG vs ENV, COPY vs ADD, HEALTHCHECK syntax, layer ordering for cache efficiency, and non-root USER patterns.</p><div class="card-footer"><span class="card-duration">10 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot empty"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 06 — KUBERNETES ARCHITECTURE & OPERATIONS -->
+<section class="topic-section" id="t06">
+  <div class="topic-header">
+    <div class="topic-num">06</div>
+    <div class="topic-info">
+      <div class="topic-label">Orchestration</div>
+      <h2 class="topic-title">Kubernetes Architecture &<br><em>Production Operations</em></h2>
+      <p class="topic-desc">Kubernetes from the control plane internals through production hardening — etcd, the scheduler, admission controllers, resource management, and the daily operations of a production cluster.</p>
+      <div class="topic-tags"><span class="topic-tag">Control Plane</span><span class="topic-tag">etcd</span><span class="topic-tag">Admission Controllers</span><span class="topic-tag">Resource Management</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Kubernetes Control Plane: What Happens When You kubectl apply</h3><p>Request journey through the API server — authentication, authorization (RBAC), admission, validation, etcd write, informers, scheduler, kubelet reconciliation. Every step traced.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Kubernetes Scheduler: Predicates, Priorities & Custom Scheduling</h3><p>How the scheduler scores nodes — resource fit, affinity, taints/tolerations, topology spread. Writing custom scheduler plugins with the scheduling framework.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Production HPA + KEDA: Event-Driven Autoscaling</h3><p>Scale on CPU, custom metrics (Prometheus), and external events (Kafka queue depth, SQS length). KEDA ScaledObjects, trigger authentication, and scale-to-zero patterns.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Writing Admission Webhooks: Mutating & Validating</h3><p>Build a production admission webhook in Go — TLS bootstrapping, MutatingWebhookConfiguration, JSON patch generation, and testing with kind. Real example: enforcing resource limits.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Diagnosing CrashLoopBackOff, Pending & OOMKilled Pods</h3><p>Systematic debugging playbook: events, logs, describe, resource pressure, node conditions, kubelet logs, and audit logs. 15 real production failure scenarios with solutions.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Kubernetes CIS Benchmark Hardening</h3><p>Running kube-bench against the CIS Kubernetes Benchmark. Fixing API server flags, kubelet settings, etcd encryption at rest, network policies, and pod security standards.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>Airbnb's Migration to 1000-Node Kubernetes Cluster</h3><p>How Airbnb moved from Mesos to Kubernetes — node autoscaler tuning, custom scheduler plugins for data-locality, and managing 500+ microservices with GitOps.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-cheatsheet reveal"><div class="card-type-badge"><span class="card-type-icon">≡</span>Cheat Sheet</div><h3>kubectl Mastery: 100 Commands with Context</h3><p>Complete kubectl reference covering jsonpath, custom columns, watch, exec, port-forward, auth can-i, top, drain, cordon, and debug ephemeral containers.</p><div class="card-footer"><span class="card-duration">15 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot empty"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 07 — HELM, KUSTOMIZE & PACKAGING -->
+<section class="topic-section" id="t07">
+  <div class="topic-header">
+    <div class="topic-num">07</div>
+    <div class="topic-info">
+      <div class="topic-label">K8s Packaging</div>
+      <h2 class="topic-title">Helm, Kustomize &<br><em>Application Packaging</em></h2>
+      <p class="topic-desc">Packaging Kubernetes applications for multi-environment, multi-tenant deployment. Helm chart design patterns, Kustomize overlays, and the Helm vs. Kustomize vs. both debate settled.</p>
+      <div class="topic-tags"><span class="topic-tag">Helm v3</span><span class="topic-tag">Kustomize</span><span class="topic-tag">OCI Registries</span><span class="topic-tag">Chart Testing</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Helm Chart Design Patterns for Multi-Tenant Applications</h3><p>Library charts, chart dependencies, conditional blocks, schema validation, and the common chart pattern used by CNCF projects. When Helm becomes a liability.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Kustomize Overlays: Base → Dev → Staging → Production</h3><p>Kustomize transformers, generators, patches (strategic merge, JSON6902), configMapGenerator with hashing, and cross-namespace references. Full working example.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Build, Test & Publish a Production Helm Chart to OCI Registry</h3><p>helm create, linting with helm lint + chart-testing, unit testing with helm-unittest, signing with Cosign, and publishing to GitHub Container Registry as an OCI artifact.</p><div class="card-footer"><span class="card-duration">85 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Helm vs. Kustomize vs. Helm+Kustomize: Honest Assessment</h3><p>Pure Helm, pure Kustomize, and the popular Helm-render-then-Kustomize pattern. Complexity costs, team learning curves, GitOps compatibility, and maintenance burden.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Helm Release Stuck in Pending-Upgrade: Recovery Playbook</h3><p>Helm release state machine, recovering from failed upgrades, secret inspection, rollback vs. uninstall, and protecting stateful workloads during Helm operations.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>values.yaml Design: Ergonomic, Safe, and Self-Documenting</h3><p>JSON Schema for values validation, sensible defaults, values.schema.json, and structuring values for both developer UX and operator safety.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 08 — INFRASTRUCTURE AS CODE: TERRAFORM -->
+<section class="topic-section" id="t08">
+  <div class="topic-header">
+    <div class="topic-num">08</div>
+    <div class="topic-info">
+      <div class="topic-label">Infrastructure as Code</div>
+      <h2 class="topic-title">Terraform at <em>Production Scale</em></h2>
+      <p class="topic-desc">From HCL fundamentals to enterprise-scale Terraform — module design, state management at scale, Terragrunt for DRY stacks, testing with Terratest, and managing drift in live cloud environments.</p>
+      <div class="topic-tags"><span class="topic-tag">Terraform 1.8+</span><span class="topic-tag">Terragrunt</span><span class="topic-tag">Terratest</span><span class="topic-tag">OpenTofu</span><span class="topic-tag">Infracost</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Terraform Module Architecture for 50+ AWS Accounts</h3><p>Root modules vs. child modules vs. published modules. The AWS Reference Architecture pattern — VPC, IAM, EKS, RDS as composable modules with strict interfaces.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Advanced HCL: Dynamic Blocks, For Expressions & moved Blocks</h3><p>Dynamic blocks for variable-length resources, for/for_each expressions, the moved block for safe refactoring without destroy/recreate, and import blocks in TF 1.5+.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Terragrunt Multi-Environment Stack: DRY Across 4 Envs</h3><p>Single Terraform module, four environments (dev/staging/prod-us/prod-eu) driven by Terragrunt. Remote state isolation, dependency management, and run-all with partial runs.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Testing Terraform with Terratest: Unit, Integration & E2E</h3><p>Go-based Terratest: module unit tests with mocks, integration tests deploying real AWS resources, cleanup guarantees, and parallel test execution with t.Parallel().</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>State Surgery: Recovering from Terraform State Disasters</h3><p>terraform state mv, rm, replace; importing resources into state; manual state edits; splitting state files; and cross-state references with remote_state data sources.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>Natural Language to Terraform: LLM-Assisted IaC Workflows</h3><p>Using Claude/GPT-4 to generate Terraform from architecture diagrams, validate HCL semantics, suggest resource optimisations, and explain state diffs in plain English.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Terraform vs. OpenTofu vs. Pulumi vs. AWS CDK in 2025</h3><p>Post-BUSL licensing: OpenTofu fork status, Pulumi's programming language advantage, CDK's AWS-native strengths, and when to choose each for new greenfield projects.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Terraform Security: tfsec, Checkov & Sentinel Policies</h3><p>Static analysis in CI with tfsec and Checkov. Writing Sentinel policies for cost guardrails, resource tagging enforcement, and approved AMI allow-lists in Terraform Cloud.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 09 — GITOPS & PROGRESSIVE DELIVERY -->
+<section class="topic-section" id="t09">
+  <div class="topic-header">
+    <div class="topic-num">09</div>
+    <div class="topic-info">
+      <div class="topic-label">GitOps</div>
+      <h2 class="topic-title">GitOps &<br><em>Progressive Delivery</em></h2>
+      <p class="topic-desc">ArgoCD and Flux as production-grade GitOps engines, Argo Rollouts for analysis-driven canaries, and the patterns that make self-healing infrastructure real rather than aspirational.</p>
+      <div class="topic-tags"><span class="topic-tag">ArgoCD</span><span class="topic-tag">Flux v2</span><span class="topic-tag">Argo Rollouts</span><span class="topic-tag">ApplicationSets</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>GitOps at Scale: App-of-Apps vs. ApplicationSets</h3><p>Bootstrapping ArgoCD, the app-of-apps pattern, ApplicationSets with cluster generators, matrix generators, and managing 200+ applications across 10 clusters from one repo.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>ArgoCD + Argo Rollouts: Automated Canary with Prometheus Analysis</h3><p>AnalysisTemplate writing real PromQL queries, progressive weight shifting, automatic rollback on error-rate threshold, and Slack notifications at each step.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>ArgoCD vs. Flux v2: Architecture & Operational Trade-offs</h3><p>Pull vs. push reconciliation models, UI/CLI UX, multi-tenancy models, notification frameworks, and which fits better in large enterprise vs. startup contexts.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>ArgoCD RBAC, SSO & Least-Privilege GitOps</h3><p>ArgoCD RBAC policies with Dex SSO, project-scoped cluster access, sync windows to prevent off-hours deployments, and audit trail for every sync operation.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>ArgoCD Sync Loops, Drift Detection & OutOfSync Debugging</h3><p>Why resources stay OutOfSync, resource health assessment, custom health checks, ignoreDifferences for operator-managed fields, and dealing with annotation drift.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Feature Flags + GitOps: Decoupling Deploy from Release</h3><p>OpenFeature standard, LaunchDarkly and Flagsmith integration with Kubernetes. How Spotify ships 300+ features per day without branching by separating deploy from release.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 10 — SERVICE MESH & ADVANCED NETWORKING -->
+<section class="topic-section" id="t10">
+  <div class="topic-header">
+    <div class="topic-num">10</div>
+    <div class="topic-info">
+      <div class="topic-label">Service Mesh</div>
+      <h2 class="topic-title">Service Mesh &<br><em>Advanced Networking</em></h2>
+      <p class="topic-desc">Istio's control plane, sidecar vs. ambient mesh, mTLS at scale, traffic management patterns, and eBPF-based networking with Cilium as the new frontier of cloud-native networking.</p>
+      <div class="topic-tags"><span class="topic-tag">Istio Ambient</span><span class="topic-tag">Cilium</span><span class="topic-tag">eBPF</span><span class="topic-tag">mTLS</span><span class="topic-tag">Gateway API</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Istio Ambient Mesh: No Sidecars, Full Security</h3><p>Ztunnel and waypoint proxies, how ambient mode eliminates per-pod overhead, L4 vs L7 processing path, and the operational benefits over sidecar mode at 1000-pod scale.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>eBPF: The Linux Kernel Revolution for Networking</h3><p>eBPF programs, maps, helpers, and the BPF verifier. How Cilium uses eBPF for kube-proxy replacement, network policies without iptables, and L7 visibility without sidecars.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Istio Traffic Management: VirtualService, DestinationRule & Circuit Breaker</h3><p>Weighted routing, fault injection, retries with budget, circuit breaker with outlier detection, and mirroring 5% of production traffic to a shadow deployment.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Istio vs. Linkerd vs. Cilium Service Mesh in 2025</h3><p>Feature matrix, performance benchmarks (latency overhead at p99), operational complexity, and community trajectory. Which to pick for startup vs. regulated enterprise.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Zero-Trust Networking with mTLS & Authorization Policies</h3><p>Mutual TLS bootstrapping with SPIFFE/SPIRE, AuthorizationPolicy for service-to-service allow-listing, PeerAuthentication STRICT mode, and audit logging all mesh traffic.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>503 Errors in a Service Mesh: Systematic Diagnosis</h3><p>Distinguishing upstream failures from proxy faults: istioctl analyse, proxy-config, envoy admin APIs, access logs, and tracing with Jaeger. 10 real production failure patterns.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 11 — OBSERVABILITY: METRICS, LOGS & TRACES -->
+<section class="topic-section" id="t11">
+  <div class="topic-header">
+    <div class="topic-num">11</div>
+    <div class="topic-info">
+      <div class="topic-label">Observability</div>
+      <h2 class="topic-title">Observability:<br><em>Metrics, Logs & Traces</em></h2>
+      <p class="topic-desc">Full-stack observability with OpenTelemetry as the universal standard — instrumentation, Prometheus + Thanos at scale, Grafana LGTM stack, and the shift from monitoring to active observability.</p>
+      <div class="topic-tags"><span class="topic-tag">OpenTelemetry</span><span class="topic-tag">Prometheus + Thanos</span><span class="topic-tag">Grafana LGTM</span><span class="topic-tag">SLOs</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>OpenTelemetry: One SDK to Rule Them All</h3><p>OTLP protocol, SDK auto-instrumentation, the collector pipeline (receivers, processors, exporters), and routing traces, metrics, and logs to multiple backends simultaneously.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Instrument a Microservice: Traces, Metrics & Logs in 30 Min</h3><p>Auto-instrument a Python Flask API with OTel, export to Tempo (traces), Prometheus (metrics), Loki (logs), and build a Grafana dashboard correlating all three signals.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>SLOs, Error Budgets & The Art of Alert Design</h3><p>Moving from symptom-based to SLO-based alerting. Burn rate alerting, multi-window multi-burn-rate alerts, error budget policies, and eliminating alert fatigue with Alertmanager.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>PromQL Mastery: From Basics to Multi-Dimensional Analysis</h3><p>Rate vs irate, histogram_quantile, topk, absent(), and writing recording rules. Performance engineering with PromQL — avoiding high-cardinality query anti-patterns.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>LLM-Powered Root Cause Analysis from Observability Data</h3><p>Feeding correlated traces, logs, and metrics into LLMs for RCA. Building an AI incident assistant that proposes hypotheses from a 50k-line log dump in under 30 seconds.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>Cloudflare's Observability at 55 Million HTTP Requests/Second</h3><p>How Cloudflare instruments every edge node, aggregates telemetry from 300+ data centres, and maintains sub-10s alerting latency at petabyte-scale log volumes.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>High Cardinality Explosions: Diagnosing Prometheus OOM</h3><p>Label cardinality analysis with mimirtool, identifying cardinality bombs, relabeling to drop bad metrics, and migrating to Mimir or Thanos for long-term storage.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 12 — DEVSECOPS & SUPPLY CHAIN SECURITY -->
+<section class="topic-section" id="t12">
+  <div class="topic-header">
+    <div class="topic-num">12</div>
+    <div class="topic-info">
+      <div class="topic-label">Security</div>
+      <h2 class="topic-title">DevSecOps &<br><em>Supply Chain Security</em></h2>
+      <p class="topic-desc">Embedding security into every pipeline stage — SAST, DAST, SCA, container scanning, secrets management at scale, SLSA provenance, and Policy-as-Code with OPA and Kyverno.</p>
+      <div class="topic-tags"><span class="topic-tag">SLSA</span><span class="topic-tag">OPA / Kyverno</span><span class="topic-tag">Sigstore</span><span class="topic-tag">Vault</span><span class="topic-tag">Trivy</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>SLSA Framework: Achieving Build Provenance Level 3</h3><p>SLSA levels explained, generating provenance with slsa-github-generator, signing artifacts with Sigstore/Cosign, SBOM generation with Syft, and verifying in CD pipelines.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>OPA Rego: Writing Policies for Kubernetes Admission</h3><p>Rego language fundamentals, OPA Gatekeeper ConstraintTemplates, policy testing with conftest, and the OPA policy library. Real policies: no latest tag, required labels, image allow-list.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Build a Zero-Trust Security Pipeline: SAST → SCA → Sign → Attest</h3><p>Semgrep SAST, Trivy SCA, Grype for CVE scanning, Cosign image signing, and in-toto attestations — wired into a GitHub Actions pipeline with policy enforcement gates.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>HashiCorp Vault at Scale: Dynamic Secrets for Every Service</h3><p>Vault HA with Raft storage, dynamic database credentials, PKI secrets engine, Kubernetes auth method, Vault Agent Injector vs. Vault Secrets Operator in K8s.</p><div class="card-footer"><span class="card-duration">75 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>AI-Assisted Vulnerability Triage: Noise Reduction at Scale</h3><p>Using LLMs to prioritise CVE findings by exploitability context, auto-generate fix PRs for known vulnerability patterns, and explain attack paths to non-security engineers.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>SolarWinds to XZ Utils: Lessons from Supply Chain Attacks</h3><p>Post-mortems on the most significant supply chain attacks — what the attackers did, what defensive controls would have stopped them, and how SLSA maps to each attack vector.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>Dependency Management: Pinning, Auditing & Automated Updates</h3><p>Pinning container images by digest, Dependabot vs. Renovate configuration, grouped updates, auto-merge for minor patches, and CODEOWNERS for dependency review gates.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-quiz reveal"><div class="card-type-badge"><span class="card-type-icon">✎</span>Quiz</div><h3>DevSecOps Practitioner Assessment: 25 Scenario Questions</h3><p>Scenarios drawn from real security incidents — CVE prioritisation, secrets rotation, policy bypass detection, and supply chain incident response. Mapped to NIST CSF 2.0.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 13 — AIOPS & INTELLIGENT OPERATIONS -->
+<section class="topic-section" id="t13">
+  <div class="topic-header">
+    <div class="topic-num">13</div>
+    <div class="topic-info">
+      <div class="topic-label">AIOps</div>
+      <h2 class="topic-title">AIOps &<br><em>Intelligent Operations</em></h2>
+      <p class="topic-desc">Machine learning for IT operations — anomaly detection on time-series metrics, log clustering, predictive failure analysis, AI-driven incident triage, and building a self-healing operations platform.</p>
+      <div class="topic-tags"><span class="topic-tag">Anomaly Detection</span><span class="topic-tag">Log Intelligence</span><span class="topic-tag">Predictive Analytics</span><span class="topic-tag">Incident AI</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>Time-Series Anomaly Detection on Prometheus Metrics</h3><p>Isolation Forest, Prophet, and LSTM-based detectors applied to infrastructure metrics. Deploying as a Prometheus-compatible exporter that alerts on predicted anomalies 15 min ahead.</p><div class="card-footer"><span class="card-duration">75 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Log Intelligence: Clustering Failures with Drain3 + LLMs</h3><p>Drain3 for log template extraction, semantic clustering of error patterns, and using GPT-4/Claude to generate human-readable summaries of log clusters for on-call engineers.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Building an AI Incident Response Agent</h3><p>LLM agent with tool use: queries Prometheus, Loki, PagerDuty, and Runbooks. Proposes runbook steps, creates JIRA tickets, and updates Slack status — all autonomously on alert fire.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Dynatrace Davis AI: Production AIOps in a Fortune 500</h3><p>How a global bank uses Dynatrace Davis for automatic problem detection, causal topology mapping, and zero-alert overnight shifts — reducing MTTR from 45 minutes to 4.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Predictive Scaling: Train & Deploy a Capacity Forecast Model</h3><p>Collect historical metrics, train a Prophet-based capacity forecast, and deploy it to auto-adjust Kubernetes VPA recommendations 1 hour before predicted demand spikes.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-research reveal"><div class="card-type-badge"><span class="card-type-icon">⌬</span>Research</div><h3>The State of AIOps: What Actually Works in 2025</h3><p>EMA research on AIOps adoption — which use cases deliver measurable ROI (alert correlation, change detection) vs. which are still aspirational (fully autonomous remediation).</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 14 — CHAOS ENGINEERING & SRE -->
+<section class="topic-section" id="t14">
+  <div class="topic-header">
+    <div class="topic-num">14</div>
+    <div class="topic-info">
+      <div class="topic-label">Reliability</div>
+      <h2 class="topic-title">Chaos Engineering &<br><em>Site Reliability Engineering</em></h2>
+      <p class="topic-desc">Building reliability through deliberate failure — Chaos Engineering from GameDay design to continuous validation, and SRE practices: SLOs, error budgets, toil elimination, and on-call health.</p>
+      <div class="topic-tags"><span class="topic-tag">LitmusChaos</span><span class="topic-tag">Chaos Toolkit</span><span class="topic-tag">SLO/Error Budget</span><span class="topic-tag">GameDay</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Chaos Engineering Principles: Science, Not Destruction</h3><p>Forming hypotheses, blast radius minimisation, steady-state definition, and how Netflix moved from GameDays to continuous chaos in production. The Simian Army evolution.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>LitmusChaos: Pod Kill, Network Latency & CPU Stress Experiments</h3><p>Deploy LitmusChaos on kind, run pod-delete, network-loss, and cpu-hog experiments against a microservice, observe SLO degradation, and validate auto-recovery.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>SLO-as-Code with Sloth + Prometheus Rules</h3><p>Define SLOs declaratively with Sloth, auto-generate multi-window burn-rate alerting rules, visualise error budget consumption in Grafana, and trigger freeze policies at budget exhaustion.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>AWS re:Invent GameDay: Anatomy of a 4-Hour Chaos Exercise</h3><p>How AWS designs GameDay scenarios — scenario selection, safety boundaries, observation setup, debrief structure, and how findings feed back into architecture decisions.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>On-Call Health: Sustainable Incident Response for Engineers</h3><p>Alert quality metrics, toil budgets, blameless postmortems, escalation policy design, follow-the-sun rotation, and measuring on-call burden before it becomes an attrition problem.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-interview reveal"><div class="card-type-badge"><span class="card-type-icon">◇</span>Interview Prep</div><h3>SRE Interview: 25 Production Incident Scenario Questions</h3><p>Deep system design and incident management questions: cascading failures, thundering herd, cache stampede, dependency failure isolation. Answers with trade-off analysis.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 15 — PLATFORM ENGINEERING & IDPS -->
+<section class="topic-section" id="t15">
+  <div class="topic-header">
+    <div class="topic-num">15</div>
+    <div class="topic-info">
+      <div class="topic-label">Platform Engineering</div>
+      <h2 class="topic-title">Platform Engineering &<br><em>Internal Developer Platforms</em></h2>
+      <p class="topic-desc">Building the paved road — Backstage as an IDP, golden paths, self-service provisioning, developer portals, and the platform team topology that makes 200 engineers move at 10x speed.</p>
+      <div class="topic-tags"><span class="topic-tag">Backstage</span><span class="topic-tag">Crossplane</span><span class="topic-tag">Port</span><span class="topic-tag">Team Topologies</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Internal Developer Platform Architecture: The Five Planes</h3><p>Developer control plane, integration & delivery plane, monitoring plane, security plane, and resource plane. How they map to Backstage plugins, Crossplane, and Argo.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Backstage: Build a Developer Portal with Software Catalog & TechDocs</h3><p>Deploy Backstage, populate the Software Catalog via GitHub autodiscovery, wire in the Kubernetes plugin, Argo CD plugin, and TechDocs for auto-generated documentation.</p><div class="card-footer"><span class="card-duration">120 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Crossplane: Kubernetes-Native Cloud Resource Provisioning</h3><p>Crossplane CompositeResourceDefinitions, Compositions, and Providers (AWS, Azure, GCP). Self-service database provisioning via kubectl — the "Kubernetes API for everything" pattern.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>AI-Powered Developer Portal: LLM Copilot in Your IDP</h3><p>Embedding an LLM into Backstage to answer "how do I deploy this?", generate scaffolded services from natural language, and surface relevant runbooks during incidents.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>Spotify's Backstage: From Internal Tool to Industry Standard</h3><p>Spotify's journey building and open-sourcing Backstage — team productivity gains, plugin ecosystem growth, and how other companies (American Airlines, Box) have adapted it.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-research reveal"><div class="card-type-badge"><span class="card-type-icon">⌬</span>Research</div><h3>Platform Engineering ROI: Measuring Developer Experience</h3><p>DORA + SPACE metrics before/after platform adoption. Measuring cognitive load, context switching, and deployment frequency in a 150-engineer org over 18 months.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 16 — AWS DEVOPS SERVICES -->
+<section class="topic-section" id="t16">
+  <div class="topic-header">
+    <div class="topic-num">16</div>
+    <div class="topic-info">
+      <div class="topic-label">Cloud — AWS</div>
+      <h2 class="topic-title">AWS DevOps &<br><em>Native Cloud Services</em></h2>
+      <p class="topic-desc">AWS-native DevOps from EKS Blueprints to CodePipeline to serverless CI/CD — building production-grade pipelines that leverage AWS services without vendor lock-in anti-patterns.</p>
+      <div class="topic-tags"><span class="topic-tag">EKS Blueprints</span><span class="topic-tag">CodeCatalyst</span><span class="topic-tag">CDK Pipelines</span><span class="topic-tag">Serverless</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>EKS Blueprints: Production Cluster in 30 Minutes</h3><p>EKS Blueprints with Terraform — managed node groups, Karpenter for node autoscaling, AWS Load Balancer Controller, EBS CSI driver, and IRSA for pod IAM permissions.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>AWS CDK Pipelines: Self-Mutating CI/CD for Your Infrastructure</h3><p>CDK Pipelines construct — cross-account deployments, self-mutation, manual approval stages, wave deployments across 20 AWS accounts, and rollback on health check failure.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Multi-Account AWS Architecture: Landing Zone & Control Tower</h3><p>AWS Organizations, Control Tower guardrails, Account Factory for Terraform, Service Control Policies, and the security baseline every production workload needs.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Karpenter: Intelligent Node Provisioning at Netflix Scale</h3><p>Karpenter vs. Cluster Autoscaler — provisioning latency, bin-packing efficiency, spot interruption handling, and how Netflix reduced EC2 costs 47% by migrating to Karpenter.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>AWS Security Hub + GuardDuty in a DevSecOps Pipeline</h3><p>Integrating Security Hub findings into CI/CD gates, GuardDuty EKS threat detection, Inspector v2 for container CVEs, and automated remediation with Systems Manager.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>EKS Production Incident Playbook: Node Not Ready, ENI Exhaustion</h3><p>AWS-specific K8s failures — VPC CNI IP address exhaustion, EBS volume attach timeouts, IAM permission boundaries, and cross-AZ traffic costs causing cascading failures.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 17 — AZURE DEVOPS & CLOUD -->
+<section class="topic-section" id="t17">
+  <div class="topic-header">
+    <div class="topic-num">17</div>
+    <div class="topic-info">
+      <div class="topic-label">Cloud — Azure</div>
+      <h2 class="topic-title">Azure DevOps &<br><em>Cloud-Native Delivery</em></h2>
+      <p class="topic-desc">Azure Pipelines YAML mastery, AKS with Workload Identity, Bicep for IaC, Azure Container Apps for serverless Kubernetes, and the Azure Developer CLI for local-to-cloud workflows.</p>
+      <div class="topic-tags"><span class="topic-tag">AKS</span><span class="topic-tag">Bicep</span><span class="topic-tag">Azure Container Apps</span><span class="topic-tag">Workload Identity</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Bicep: Modern Azure IaC Without ARM Template Pain</h3><p>Bicep modules, parameter files, what-if deployments, bicep-azure-decompile for migration from ARM templates, and the bicep linter in CI. Full AKS + AGIC deployment example.</p><div class="card-footer"><span class="card-duration">70 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>AKS + Workload Identity + Azure Key Vault Integration</h3><p>Federated credential setup, Workload Identity binding, Azure Key Vault Provider for Secrets Store CSI Driver — no more pod service principals, no more credential rotation pain.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Azure Container Apps: Serverless Kubernetes for Microservices</h3><p>KEDA integration, Dapr sidecar, HTTPS ingress, scale-to-zero, blue-green revisions, and when ACA makes more sense than AKS. Cost comparison for varying traffic patterns.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Azure DevOps vs. GitHub Actions for Enterprise: 2025 Verdict</h3><p>Boards integration, ADO pipelines vs. GitHub Actions YAML, agent pools, artifact feeds, and why most enterprises end up running both and how to manage that sensibly.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>HSBC's Azure Landing Zone: Financial Services Cloud Migration</h3><p>How HSBC built a compliant Azure Landing Zone for 50,000+ workloads — FIPS compliance, network segmentation, privileged identity management, and Defender for Cloud integration.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 18 — GENAI FOR DEVOPS AUTOMATION -->
+<section class="topic-section" id="t18">
+  <div class="topic-header">
+    <div class="topic-num">18</div>
+    <div class="topic-info">
+      <div class="topic-label">GenAI</div>
+      <h2 class="topic-title">GenAI for DevOps<br><em>Automation</em></h2>
+      <p class="topic-desc">LLM agents that autonomously manage infrastructure — from natural language to Terraform, AI-powered runbook execution, and building MCP-integrated DevOps toolchains that work while you sleep.</p>
+      <div class="topic-tags"><span class="topic-tag">LLM Agents</span><span class="topic-tag">MCP Servers</span><span class="topic-tag">LangGraph</span><span class="topic-tag">Function Calling</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>Building a DevOps Agent with LangGraph & Tool Use</h3><p>Multi-step agent loop for infrastructure tasks: plan → validate → execute → verify. Tool use for kubectl, terraform, GitHub API, and PagerDuty. State machine design for safe autonomous ops.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>MCP Servers for DevOps: Kubernetes, GitHub & AWS Integrations</h3><p>Model Context Protocol for giving LLMs live access to your infrastructure. Building custom MCP servers for kubectl, Terraform state, CloudWatch, and deployment history.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>RAG for Runbooks: AI That Reads Your Documentation</h3><p>Indexing Confluence runbooks into a vector store, building a retrieval-augmented chat interface for on-call engineers, and keeping the knowledge base current with webhook triggers on doc edits.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Natural Language Infrastructure: "Deploy a Redis Cluster to Staging"</h3><p>End-to-end: LLM parses intent → generates Terraform plan → human-in-the-loop approval via Slack → executes → posts apply output. Full working implementation in Python.</p><div class="card-footer"><span class="card-duration">110 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>AI Agent Safety: Preventing Autonomous Infrastructure Disasters</h3><p>Guardrails for autonomous agents — dry-run defaults, approval gates for destructive actions, scope boundaries, audit logging every AI action, and rollback capabilities.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-research reveal"><div class="card-type-badge"><span class="card-type-icon">⌬</span>Research</div><h3>The 2025 State of AI in Engineering: What Teams Are Actually Doing</h3><p>GitHub survey data on AI tool adoption, productivity gains (real vs. claimed), which tasks LLMs handle well vs. poorly, and the skills that become more valuable as AI handles the routine work.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 19 — FINOPS & CLOUD COST ENGINEERING -->
+<section class="topic-section" id="t19">
+  <div class="topic-header">
+    <div class="topic-num">19</div>
+    <div class="topic-info">
+      <div class="topic-label">FinOps</div>
+      <h2 class="topic-title">FinOps &<br><em>Cloud Cost Engineering</em></h2>
+      <p class="topic-desc">Treating cloud spend as engineering — unit economics, Kubernetes cost allocation with Kubecost, Spot optimisation, reserved capacity strategy, and building cost gates into your CI/CD pipeline.</p>
+      <div class="topic-tags"><span class="topic-tag">Kubecost</span><span class="topic-tag">Infracost</span><span class="topic-tag">Spot Strategy</span><span class="topic-tag">Unit Economics</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>Cloud Unit Economics: Cost Per Transaction, Not Per Instance</h3><p>Shifting from infrastructure cost to business unit economics — cost per API call, per active user, per transaction. How to instrument cost into your service SLOs.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Kubernetes Cost Attribution with Kubecost: Namespace to Team</h3><p>Deploy Kubecost, configure cost allocation by namespace/label, create team chargeback reports, identify idle/overprovisioned workloads, and automate weekly cost digest emails.</p><div class="card-footer"><span class="card-duration">75 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Infracost in CI: Block PRs That Increase Monthly Cost by 20%+</h3><p>Infracost integration in GitHub Actions, policy-as-code with Infracost Cloud, per-PR cost diff comments, and setting budget guardrails that block expensive Terraform changes.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Spot Instances at Scale: Airbnb's 60% Cost Reduction</h3><p>Airbnb's Spot strategy for stateless services — interruption handling, heterogeneous instance families with Karpenter, capacity rebalancing, and SLO impact measurement.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>AI-Powered Right-Sizing: ML-Driven Resource Recommendations</h3><p>Using AWS Compute Optimizer + custom ML models to right-size EC2 and container resources. Automated VPA recommendation acceptance and CI gate for resource over-provisioning.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+      <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>FinOps Culture: Making Engineers Care About Cost</h3><p>Gamification, cost leaderboards, "engineer owns their cost" model, tagging standards enforcement, and how Monzo built a culture where every engineer knows their service's monthly bill.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot empty"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 20 — KUBERNETES OPERATORS & EXTENSIBILITY -->
+<section class="topic-section" id="t20">
+  <div class="topic-header">
+    <div class="topic-num">20</div>
+    <div class="topic-info">
+      <div class="topic-label">K8s Extensibility</div>
+      <h2 class="topic-title">Kubernetes Operators &<br><em>Control Plane Extensibility</em></h2>
+      <p class="topic-desc">Writing production-grade Kubernetes Operators with controller-runtime, CRD design, reconciliation loops, and building the custom Kubernetes extensions that platform teams depend on.</p>
+      <div class="topic-tags"><span class="topic-tag">controller-runtime</span><span class="topic-tag">Operator SDK</span><span class="topic-tag">CRDs</span><span class="topic-tag">Reconciliation Loops</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>The Operator Pattern: Encoding Human Operational Knowledge</h3><p>Controllers, reconcilers, informers, and work queues. The control loop, desired vs. actual state, exponential backoff, and why operators beat Helm for stateful applications.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Build a Database Provisioning Operator with controller-runtime</h3><p>Scaffold with Operator SDK, define DatabaseClaim CRD, write a reconciler that provisions RDS, stores connection string in a Secret, and handles deletion with finalizers.</p><div class="card-footer"><span class="card-duration">120 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Testing Kubernetes Operators with envtest + gomega</h3><p>Unit testing controllers with envtest, integration tests with a real API server, testing reconciliation error paths, and coverage-gated CI for operator code with controller-gen.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Reconciliation Loop Storms: Diagnosing & Fixing Watch Amplification</h3><p>Watch amplification bugs, thundering herd on operator restart, rate limiting with workqueue, leader election configuration, and profiling operator memory with pprof.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-casestudy reveal"><div class="card-type-badge"><span class="card-type-icon">◉</span>Case Study</div><h3>Zalando's Postgres Operator: Managing 3000+ Databases</h3><p>Zalando's postgres-operator architecture, connection pooling with PgBouncer, automated failover, WAL-E/S backup integration, and the team structure behind operating it at scale.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 21 — MULTI-CLOUD & HYBRID ARCHITECTURE -->
+<section class="topic-section" id="t21">
+  <div class="topic-header">
+    <div class="topic-num">21</div>
+    <div class="topic-info">
+      <div class="topic-label">Multi-Cloud</div>
+      <h2 class="topic-title">Multi-Cloud & Hybrid<br><em>Infrastructure Patterns</em></h2>
+      <p class="topic-desc">Designing for cloud portability without losing native service benefits — Anthos, Azure Arc, multi-cluster Kubernetes federation, and the organisational patterns that make multi-cloud governance work.</p>
+      <div class="topic-tags"><span class="topic-tag">Anthos / GKE</span><span class="topic-tag">Azure Arc</span><span class="topic-tag">Cluster API</span><span class="topic-tag">Multi-Cluster GitOps</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>Multi-Cluster Kubernetes: Federation Patterns & Trade-offs</h3><p>KubeFed v2, Cluster API, Liqo, and Submariner for cross-cluster service discovery. Stateless vs. stateful workload distribution, data sovereignty, and latency budgets across regions.</p><div class="card-footer"><span class="card-duration">65 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>ArgoCD Multi-Cluster GitOps: Deploy to AWS, Azure & GCP Simultaneously</h3><p>Register EKS, AKS, and GKE clusters in ArgoCD, use ApplicationSets to target all three, implement cluster-specific overlays, and validate cross-cloud deployment consistency.</p><div class="card-footer"><span class="card-duration">100 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-comparison reveal"><div class="card-type-badge"><span class="card-type-icon">⇄</span>Comparison</div><h3>Anthos vs. Azure Arc vs. EKS Anywhere: Enterprise Evaluation</h3><p>Honest comparison of Google Anthos, Azure Arc, and EKS Anywhere for hybrid/multi-cloud management — pricing, operational overhead, ecosystem lock-in, and support quality.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-usecase reveal"><div class="card-type-badge"><span class="card-type-icon">◎</span>Use Case</div><h3>Multi-Cloud Disaster Recovery: 15-Minute RTO Across Clouds</h3><p>Active-passive cross-cloud setup — Velero backup to both S3 and Azure Blob, Terraform-driven failover, DNS cutover automation, and runbook-driven RTO testing.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>Avoiding Multi-Cloud Anti-Patterns: When Portability Hurts You</h3><p>The lowest-common-denominator trap, abstraction layer overhead, the difference between cloud portability and cloud-native advantage, and how to make principled multi-cloud decisions.</p><div class="card-footer"><span class="card-duration">35 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 22 — ADVANCED ANSIBLE & CONFIGURATION MANAGEMENT -->
+<section class="topic-section" id="t22">
+  <div class="topic-header">
+    <div class="topic-num">22</div>
+    <div class="topic-info">
+      <div class="topic-label">Config Management</div>
+      <h2 class="topic-title">Advanced Ansible &<br><em>Configuration at Scale</em></h2>
+      <p class="topic-desc">Ansible beyond playbooks — collection development, Execution Environments, Event-Driven Ansible for self-healing infrastructure, and AWX/AAP for enterprise-grade orchestration at 10,000+ hosts.</p>
+      <div class="topic-tags"><span class="topic-tag">Ansible EDA</span><span class="topic-tag">Execution Environments</span><span class="topic-tag">AWX</span><span class="topic-tag">Collections</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-ai reveal"><div class="card-type-badge"><span class="card-type-icon">✦</span>AI Integration</div><h3>Event-Driven Ansible: Self-Healing Infrastructure on Alert Fire</h3><p>Ansible EDA rulebooks listening to Kafka, webhooks, and Alertmanager. Automated playbook execution when a disk fills, a service crashes, or a security policy violation fires.</p><div class="card-footer"><span class="card-duration">75 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-code reveal"><div class="card-type-badge"><span class="card-type-icon">⌨</span>Code</div><h3>Building Ansible Collections: Reusable Roles for Your Organisation</h3><p>Collection structure, meta/runtime.yml, molecule testing with Docker driver, publishing to Automation Hub, and semantic versioning for internal collection releases.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Ansible + Terraform: Provision with TF, Configure with Ansible</h3><p>Dynamic inventory from Terraform state via terraform-inventory, passing outputs as Ansible variables, idempotent configuration of 100 EC2 instances, and integration testing with Testinfra.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-debug reveal"><div class="card-type-badge"><span class="card-type-icon">⚡</span>Debug</div><h3>Ansible Performance: From 2-Hour Playbooks to 12 Minutes</h3><p>Profiling with callback_whitelist, pipelining, async tasks, free strategy, mitogen connection plugin, and eliminating slow gather_facts calls. Real before/after optimisation case.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-security reveal"><div class="card-type-badge"><span class="card-type-icon">⚠</span>Security</div><h3>Ansible Vault at Enterprise Scale: Key Management & Rotation</h3><p>Vault encrypt_string vs. encrypted files, CyberArk/HashiCorp Vault as external secret sources, key rotation automation, and auditing vault usage across a 50-engineer organisation.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 23 — WASM, EBPF & EMERGING RUNTIMES -->
+<section class="topic-section" id="t23">
+  <div class="topic-header">
+    <div class="topic-num">23</div>
+    <div class="topic-info">
+      <div class="topic-label">Emerging Tech</div>
+      <h2 class="topic-title">WebAssembly, eBPF &<br><em>The Next Runtime Layer</em></h2>
+      <p class="topic-desc">The technologies reshaping how workloads run — WebAssembly as a universal compute substrate, eBPF for zero-overhead observability and networking, and what they mean for DevOps in 2025–2030.</p>
+      <div class="topic-tags"><span class="topic-tag">Wasm/WASI</span><span class="topic-tag">WasmCloud</span><span class="topic-tag">eBPF</span><span class="topic-tag">Spin / Fermyon</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>WebAssembly Beyond the Browser: WASI and the Universal Runtime</h3><p>WASM bytecode, WASI system interface, component model, and why cloud providers (Fastly, Cloudflare, Fermyon) are running WASM workloads 100× faster to first byte than containers.</p><div class="card-footer"><span class="card-duration">50 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-lab reveal"><div class="card-type-badge"><span class="card-type-icon">⬡</span>Lab</div><h3>Deploy a Rust Microservice as Wasm on Kubernetes with Spin</h3><p>Write a Rust HTTP handler, compile to WASM, containerise with the Spin runtime, deploy to Kubernetes via kwasm-operator, and benchmark cold start vs. equivalent container.</p><div class="card-footer"><span class="card-duration">80 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-theory reveal"><div class="card-type-badge"><span class="card-type-icon">⊙</span>Theory</div><h3>eBPF for Production: Observability Without Instrumentation</h3><p>eBPF programs for automatic service maps, distributed tracing without code changes, continuous profiling with Parca, and network flow visibility — all from kernel space, zero overhead.</p><div class="card-footer"><span class="card-duration">55 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-research reveal"><div class="card-type-badge"><span class="card-type-icon">⌬</span>Research</div><h3>The 2025 Landscape: How WASM Will Change DevOps in 5 Years</h3><p>CNCF Wasm Working Group, WASI 0.2 component model, wasmCloud for distributed applications, and how the DevOps toolchain needs to evolve when deploy units shrink below containers.</p><div class="card-footer"><span class="card-duration">40 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-demo reveal"><div class="card-type-badge"><span class="card-type-icon">▶</span>Demo</div><h3>Continuous Profiling in Production with Grafana Pyroscope + eBPF</h3><p>Zero-instrumentation CPU and memory profiling for Go, Python, and Java services using eBPF. Live flame graph analysis to find the function burning 40% of your CPU in production.</p><div class="card-footer"><span class="card-duration">45 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- TOPIC 24 — CAPSTONE: END-TO-END PRODUCTION PLATFORM -->
+<section class="topic-section" id="t24">
+  <div class="topic-header">
+    <div class="topic-num">24</div>
+    <div class="topic-info">
+      <div class="topic-label">Capstone Project</div>
+      <h2 class="topic-title">Capstone: Build a<br><em>Production-Grade Platform</em></h2>
+      <p class="topic-desc">Everything converges — design and build a complete, production-ready platform from scratch. EKS + ArgoCD + Istio + Vault + Prometheus + Backstage, deployed with a GitHub Actions pipeline, secured with SLSA, and cost-governed with Infracost.</p>
+      <div class="topic-tags"><span class="topic-tag">End-to-End</span><span class="topic-tag">System Design</span><span class="topic-tag">Production Hardening</span><span class="topic-tag">Peer Review</span></div>
+    </div>
+  </div>
+  <div class="cards-grid">
+    <div class="card card-architecture reveal"><div class="card-type-badge"><span class="card-type-icon">⬢</span>Architecture</div><h3>System Design: Platform Architecture Review with Vikram Sankhala</h3><p>Whiteboard review of your platform design — scoring against production readiness checklist: HA, DR, security posture, cost baseline, observability coverage, and runbook completeness.</p><div class="card-footer"><span class="card-duration">60 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-project reveal"><div class="card-type-badge"><span class="card-type-icon">◆</span>Project</div><h3>Phase 1: Infrastructure Foundation (EKS + VPC + IAM)</h3><p>Provision the EKS cluster with Terraform Blueprints, configure Karpenter, set up multi-AZ networking, implement IRSA for all workloads, and establish the Terraform remote state structure.</p><div class="card-footer"><span class="card-duration">180 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-project reveal"><div class="card-type-badge"><span class="card-type-icon">◆</span>Project</div><h3>Phase 2: Platform Services (ArgoCD + Vault + Istio + Prometheus)</h3><p>Bootstrap ArgoCD with app-of-apps, deploy Vault with Raft HA, install Istio in ambient mode, and configure the full LGTM observability stack. All GitOps-driven from day zero.</p><div class="card-footer"><span class="card-duration">240 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-project reveal"><div class="card-type-badge"><span class="card-type-icon">◆</span>Project</div><h3>Phase 3: Application Onboarding & CI/CD Pipeline</h3><p>Create a golden-path GitHub Actions workflow: test → Trivy scan → Cosign sign → push to ECR → ArgoCD sync with Argo Rollouts canary. Onboard a sample 3-tier microservice.</p><div class="card-footer"><span class="card-duration">180 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-project reveal"><div class="card-type-badge"><span class="card-type-icon">◆</span>Project</div><h3>Phase 4: Security Hardening & Chaos Validation</h3><p>Run kube-bench, implement OPA/Kyverno policies, set up SLOs with Sloth, run LitmusChaos experiments against your SLOs, and validate that the platform self-heals within budget.</p><div class="card-footer"><span class="card-duration">180 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-project reveal"><div class="card-type-badge"><span class="card-type-icon">◆</span>Project</div><h3>Phase 5: Developer Portal & AI Copilot Integration</h3><p>Deploy Backstage with the full plugin suite, wire in your Kubernetes and ArgoCD plugins, build a custom LLM incident copilot using your platform's observability data as RAG context.</p><div class="card-footer"><span class="card-duration">180 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-interview reveal"><div class="card-type-badge"><span class="card-type-icon">◇</span>Interview Prep</div><h3>Staff Engineer DevOps Interview: Full System Design Walkthrough</h3><p>Design a multi-tenant SaaS deployment platform for 500 customers — end-to-end system design, trade-off articulation, operational concerns, and cost model. Model answer with Vikram.</p><div class="card-footer"><span class="card-duration">90 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+    <div class="card card-bestpractice reveal"><div class="card-type-badge"><span class="card-type-icon">★</span>Best Practices</div><h3>Production Readiness Checklist: 100-Point Platform Scorecard</h3><p>Vikram's definitive production readiness checklist — security, reliability, observability, scalability, cost, documentation, and runbook completeness. Use to evaluate any platform before go-live.</p><div class="card-footer"><span class="card-duration">30 min</span><div class="card-difficulty"><div class="diff-dot filled"></div><div class="diff-dot filled"></div><div class="diff-dot filled"></div></div><span class="card-link">Start →</span></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-author">Vikram <span>Sankhala</span></div>
+      <p class="footer-by">Advanced DevOps & AI Engineering — a practitioner-built curriculum for engineers who build and operate production systems at scale. 24 topics, 340+ learning cards, 18 card types covering theory, code, labs, case studies, debugging, architecture, security, AI integration, and more.</p>
+    </div>
+    <div class="footer-stats">
+      <div class="f-stat"><div class="f-stat-n">24</div><div class="f-stat-l">Topics</div></div>
+      <div class="f-stat"><div class="f-stat-n">340+</div><div class="f-stat-l">Cards</div></div>
+      <div class="f-stat"><div class="f-stat-n">18</div><div class="f-stat-l">Card Types</div></div>
+      <div class="f-stat"><div class="f-stat-n">30+</div><div class="f-stat-l">Tools</div></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Vikram Sankhala. All rights reserved.</span>
+    <span>Advanced DevOps & AI Engineering Curriculum</span>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx-5+'px'; cur.style.top=my-5+'px';
+  setTimeout(()=>{ ring.style.left=mx-14+'px'; ring.style.top=my-14+'px'; },80);
+});
+document.querySelectorAll('a,.card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.transform='scale(2.5)'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.transform='scale(1)'; });
+});
+
+// Build sidebar
+const sidebar = document.getElementById('sidebar');
+const sections = document.querySelectorAll('.topic-section');
+sections.forEach((s,i)=>{
+  const dot = document.createElement('div');
+  dot.className='sidebar-dot';
+  const title = s.querySelector('.topic-title').textContent.replace(/\s+/g,' ').trim().substring(0,20);
+  dot.setAttribute('data-label', `${String(i+1).padStart(2,'0')} ${title}...`);
+  dot.onclick=()=>{ s.scrollIntoView({behavior:'smooth'}); };
+  sidebar.appendChild(dot);
+});
+
+// Active sidebar dot
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = Array.from(sections).indexOf(e.target);
+      document.querySelectorAll('.sidebar-dot').forEach((d,i)=>{
+        d.classList.toggle('active', i===idx);
+      });
+    }
+  });
+},{threshold:0.3});
+sections.forEach(s=>io.observe(s));
+
+// Scroll reveal
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+},{threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay = (i%8)*0.045+'s';
+  revObs.observe(el);
+});
+</script>
+</body>
+</html>
